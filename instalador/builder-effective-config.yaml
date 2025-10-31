@@ -1,0 +1,27 @@
+directories:
+  output: instalador
+  buildResources: build
+appId: com.pdv.desktop
+productName: PDV Desktop
+win:
+  target: nsis
+  icon: build/icon.ico
+artifactName: PDV Desktop Setup ${version}.exe
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: PDV Desktop
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+files:
+  - filter:
+      - pdv-standalone.html
+      - main.js
+      - database.js
+      - package.json
+      - build/icon.ico
+      - build/icon.png
+      - build/icon-*.png
+electronVersion: 27.0.0

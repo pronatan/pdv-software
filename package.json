@@ -1,0 +1,49 @@
+{
+  "name": "pdv-desktop",
+  "version": "1.0.2",
+  "description": "Sistema PDV Desktop - Nativo para Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.pdv.desktop",
+    "productName": "PDV Desktop",
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "artifactName": "PDV Desktop Setup ${version}.exe",
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "PDV Desktop",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    },
+    "files": [
+      "pdv-standalone.html",
+      "main.js",
+      "database.js",
+      "package.json",
+      "build/icon.ico",
+      "build/icon.png",
+      "build/icon-*.png"
+    ],
+    "directories": {
+      "output": "instalador"
+    }
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sql.js": "^1.10.3"
+  },
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  }
+}

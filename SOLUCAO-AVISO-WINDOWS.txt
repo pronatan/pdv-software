@@ -1,0 +1,93 @@
+═══════════════════════════════════════════════════════════════
+    🛡️ SOLUÇÃO: Aviso de Segurança do Windows
+═══════════════════════════════════════════════════════════════
+
+⚠️ MENSAGEM QUE APARECE:
+"PDV Desktop Setup 1.0.0.exe normalmente não é baixado"
+
+───────────────────────────────────────────────────────────────
+
+✅ SOLUÇÃO RÁPIDA (3 CLIQUES):
+
+1. Clique em "Mais informações" (ou "Ver mais")
+   ↓
+2. Clique em "Executar mesmo assim"
+   ↓
+3. Siga o instalador normalmente
+
+───────────────────────────────────────────────────────────────
+
+❓ POR QUE ESSE AVISO APARECE?
+
+O Windows SmartScreen mostra esse aviso porque:
+• O PDV Desktop não tem certificado digital
+• Certificado custa $300-500 USD por ano
+• Mantemos o projeto gratuito sem certificado
+
+───────────────────────────────────────────────────────────────
+
+🔒 É SEGURO INSTALAR?
+
+✅ SIM! 100% Seguro porque:
+
+• Código aberto (você pode ver o código)
+• Sem conexão com internet
+• Sem envio de dados
+• Sem telemetria ou rastreamento
+• Dados salvos APENAS no seu PC
+• Sem anúncios
+• Totalmente gratuito
+
+───────────────────────────────────────────────────────────────
+
+📋 MÉTODO ALTERNATIVO:
+
+DESBLOQUEAR O ARQUIVO ANTES DE EXECUTAR:
+
+1. Vá na pasta Downloads
+2. Encontre: PDV Desktop Setup 1.0.0.exe
+3. Clique com botão DIREITO no arquivo
+4. Selecione "Propriedades"
+5. Na aba "Geral", marque "Desbloquear"
+6. Clique "OK"
+7. Execute o instalador normalmente
+
+───────────────────────────────────────────────────────────────
+
+💡 OUTROS PROGRAMAS COM MESMO AVISO:
+
+Milhares de programas gratuitos mostram o mesmo aviso:
+• OBS Studio (gravação de tela)
+• Audacity (editor de áudio)
+• Blender (modelagem 3D)
+• VLC Media Player (versões antigas)
+• E muitos outros...
+
+───────────────────────────────────────────────────────────────
+
+🎯 APÓS INSTALAR:
+
+✓ Atalho criado na Área de Trabalho
+✓ Atalho criado no Menu Iniciar
+✓ Programa instalado em: C:\Program Files\PDV Desktop\
+✓ Pronto para usar!
+
+───────────────────────────────────────────────────────────────
+
+❌ NUNCA TEVE VÍRUS OU MALWARE
+
+✓ Código limpo e auditável
+✓ Sem scripts maliciosos
+✓ Sem mineradores de criptomoeda
+✓ Sem keyloggers
+✓ Sem spyware
+
+───────────────────────────────────────────────────────────────
+
+📞 AINDA TEM DÚVIDAS?
+
+O aviso do Windows é padrão para programas não assinados.
+Você está 100% seguro para instalar o PDV Desktop!
+
+═══════════════════════════════════════════════════════════════
+

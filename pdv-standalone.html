@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDV Desktop - Sistema de Ponto de Venda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Tela de Login */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Azul do sistema com contraste suave branco */
+            background: linear-gradient(135deg, #1e293b 0%, #334155 45%, #3b82f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .login-screen.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 90%;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header .material-symbols-rounded {
+            font-size: 4rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+
+        .login-header h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .login-tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .login-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            color: #64748b;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .login-tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .login-form {
+            display: none;
+        }
+
+        .login-form.active {
+            display: block;
+        }
+
+        .form-group-login {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group-login label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        .form-group-login input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .form-group-login input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            background: #1e293b;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.3px;
+        }
+
+.header h1 i, .header h1 .material-symbols-rounded {
+            font-size: 24px;
+            color: #3b82f6;
+        }
+
+        .tabs {
+            display: flex;
+            background: #fff;
+            padding: 0 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab {
+            padding: 16px 24px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+.tab i, .tab .material-symbols-rounded {
+            font-size: 16px;
+        }
+
+        .tab:hover {
+            color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .tab.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+            background: transparent;
+        }
+
+        .content {
+            padding: 24px;
+            min-height: calc(100vh - 140px);
+            background: #f8fafc;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Vendas */
+        .vendas-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+        }
+
+        .busca-produto {
+            margin-bottom: 20px;
+        }
+
+        .busca-produto input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            font-size: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            background: white;
+            transition: all 0.2s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2394a3b8' viewBox='0 0 512 512'%3E%3Cpath d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 16px center;
+            background-size: 16px;
+        }
+
+        .busca-produto input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .produto-card {
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .produto-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border-color: #3b82f6;
+        }
+
+        .produto-card:active {
+            transform: translateY(-1px);
+        }
+
+        .produto-card h4 {
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .produto-card .preco {
+            color: #059669;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .produto-card .estoque {
+            color: #64748b;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+.produto-card .estoque i, .produto-card .estoque .material-symbols-rounded {
+            font-size: 10px;
+        }
+
+        .carrinho {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            position: sticky;
+            top: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .carrinho h3 {
+            margin-bottom: 20px;
+            color: #1e293b;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .carrinho h3 i {
+            color: #3b82f6;
+        }
+
+        .carrinho-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            gap: 8px;
+        }
+
+        .carrinho-item .nome {
+            flex: 1;
+            font-size: 13px;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .carrinho-item .quantidade {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .carrinho-item .quantidade button {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .carrinho-item button {
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .carrinho-item button:hover {
+            background: #fecaca;
+        }
+
+        .carrinho-total {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .carrinho-total .linha {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            font-size: 15px;
+            color: #475569;
+        }
+
+        .carrinho-total .linha input {
+            width: 100px;
+            text-align: right;
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .carrinho-total .total {
+            font-weight: 700;
+            font-size: 26px;
+            color: #1e293b;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn i {
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            margin-top: 16px;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* Produtos */
+        .produtos-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .produtos-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .tabela th {
+            background: #f8fafc;
+            color: #475569;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tabela td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+            font-size: 14px;
+        }
+
+        .tabela tbody tr {
+            transition: all 0.15s;
+        }
+
+        .tabela tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .tabela tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .modal-header button {
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .modal-header button:hover {
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .estatisticas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .stat-card h3 {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-card h3 i {
+            font-size: 16px;
+            color: #3b82f6;
+        }
+
+        .stat-card .valor {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.5px;
+        }
+        /* Toasts */
+        .toast-container { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 10001; }
+        .toast { min-width: 260px; max-width: 360px; background: #0f172a; color: #e2e8f0; padding: 14px 16px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 10px; border-left: 4px solid #38bdf8; animation: fadeIn 0.2s ease-out; }
+        .toast.success { border-left-color: #10b981; }
+        .toast.error { border-left-color: #ef4444; }
+        .toast.warning { border-left-color: #f59e0b; }
+        .toast .material-symbols-rounded { font-size: 18px; opacity: 0.9; }
+        /* Modal de confirmação */
+        .confirm-modal { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.6); z-index:10002; align-items:center; justify-content:center; }
+        .confirm-modal.active { display:flex; }
+        .confirm-box { background:#fff; width:92%; max-width:420px; border-radius:14px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); padding:22px; }
+        .confirm-title { font-size:18px; color:#0f172a; font-weight:700; margin-bottom:8px; }
+        .confirm-text { color:#475569; margin-bottom:18px; }
+        .confirm-actions { display:flex; gap:10px; justify-content:flex-end; }
+        .btn-outline { background:#fff; color:#0f172a; border:1px solid #cbd5e1; }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login/Cadastro -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <div class="login-header">
+                <span class="material-symbols-rounded">point_of_sale</span>
+                <h2>PDV Desktop</h2>
+                <p id="loginWelcome">Bem-vindo! Faça login para continuar</p>
+            </div>
+
+            <div class="error-message" id="loginError"></div>
+            <div class="success-message" id="loginSuccess"></div>
+
+            <div class="login-tabs" id="loginTabs">
+                <div class="login-tab active" onclick="mudarLoginTab('login')">Entrar</div>
+                <div class="login-tab" onclick="mudarLoginTab('cadastro')">Criar Conta</div>
+            </div>
+
+            <!-- Form de Login -->
+            <form class="login-form active" id="formLogin" onsubmit="fazerLogin(event)">
+                <div class="form-group-login">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="seu@email.com">
+                </div>
+                <div class="form-group-login">
+                    <label>Senha</label>
+                    <input type="password" id="loginSenha" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-login">
+                    <span class="material-symbols-rounded">login</span> Entrar
+                </button>
+            </form>
+
+            <!-- Form de Cadastro -->
+            <form class="login-form" id="formCadastro" onsubmit="fazerCadastro(event)">
+                <div class="form-group-login">
+                    <label>Nome Completo</label>
+                    <input type="text" id="cadastroNome" required placeholder="Seu nome">
+                </div>
+                <div class="form-group-login">
+                    <label>Email</label>
+                    <input type="email" id="cadastroEmail" required placeholder="seu@email.com">
+                </div>
+                <div class="form-group-login">
+                    <label>Senha</label>
+                    <input type="password" id="cadastroSenha" required placeholder="••••••••" minlength="6">
+                </div>
+                <div class="form-group-login">
+                    <label>Confirmar Senha</label>
+                    <input type="password" id="cadastroSenhaConfirm" required placeholder="••••••••" minlength="6">
+                </div>
+                <button type="submit" class="btn-login">
+                    <span class="material-symbols-rounded">person_add</span> Criar Conta
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1><span class="material-symbols-rounded">point_of_sale</span> PDV Desktop</h1>
+            <div style="display:flex;align-items:center;gap:20px;">
+                <span id="usuarioLogadoNome" style="color:#cbd5e1;"></span>
+                <button onclick="fazerLogout()" class="btn btn-secondary" style="padding:8px 16px;"><span class="material-symbols-rounded">logout</span> Sair</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="mudaTab('vendas')"><span class="material-symbols-rounded">shopping_cart</span> Vendas</button>
+            <button class="tab" onclick="mudaTab('produtos')"><span class="material-symbols-rounded">inventory_2</span> Produtos</button>
+            <button class="tab" onclick="mudaTab('historico')"><span class="material-symbols-rounded">query_stats</span> Histórico</button>
+        </div>
+
+        <div class="content">
+            <!-- TAB VENDAS -->
+            <div id="tab-vendas" class="tab-content active">
+                <div class="estatisticas">
+                    <div class="stat-card">
+                        <h3><span class="material-symbols-rounded">calendar_today</span> Vendas Hoje</h3>
+                        <div class="valor" id="vendasHoje">R$ 0,00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3><span class="material-symbols-rounded">event</span> Vendas Mês</h3>
+                        <div class="valor" id="vendasMes">R$ 0,00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3><span class="material-symbols-rounded">category</span> Total Produtos</h3>
+                        <div class="valor" id="totalProdutos">0</div>
+                    </div>
+                </div>
+
+                <div class="vendas-grid">
+                    <div>
+                        <div class="busca-produto">
+                            <input type="text" id="buscaCodigo" placeholder="Digite o código do produto ou busque abaixo..." onkeyup="buscarProduto(event)">
+                        </div>
+                        <div class="produtos-grid" id="produtosGrid"></div>
+                    </div>
+                    
+                    <div class="carrinho">
+                        <h3><span class="material-symbols-rounded">shopping_cart</span> Carrinho</h3>
+                        <div id="carrinhoItens"></div>
+                        <div class="carrinho-total">
+                            <div class="linha">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">R$ 0,00</span>
+                            </div>
+                            <div class="linha">
+                                <span>Desconto:</span>
+                                <input type="number" id="desconto" value="0" min="0" step="0.01" style="width:100px;text-align:right;" onchange="atualizarCarrinho()">
+                            </div>
+                            <div class="linha total">
+                                <span>TOTAL:</span>
+                                <span id="total">R$ 0,00</span>
+                            </div>
+                            <button class="btn btn-success" onclick="finalizarVenda()"><span class="material-symbols-rounded">check_circle</span> Finalizar Venda</button>
+                            <button class="btn btn-secondary" style="width:100%;margin-top:10px;" onclick="limparCarrinho()"><span class="material-symbols-rounded">delete</span> Limpar Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB PRODUTOS -->
+            <div id="tab-produtos" class="tab-content">
+                <div class="produtos-header">
+                    <h2>Gerenciar Produtos</h2>
+                    <button class="btn btn-primary" onclick="abrirModalProduto()"><span class="material-symbols-rounded">add_circle</span> Adicionar Produto</button>
+                </div>
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Categoria</th>
+                            <th>Preço</th>
+                            <th>Estoque</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaProdutos"></tbody>
+                </table>
+            </div>
+
+            <!-- TAB HISTÓRICO -->
+            <div id="tab-historico" class="tab-content">
+                <h2 style="margin-bottom:20px;">Histórico de Vendas</h2>
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Data/Hora</th>
+                            <th>Itens</th>
+                            <th>Total</th>
+                            <th>Pagamento</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaHistorico"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Modal de Confirmação -->
+    <div class="confirm-modal" id="modalConfirm">
+        <div class="confirm-box">
+            <div class="confirm-title" id="confirmTitle">Confirmação</div>
+            <div class="confirm-text" id="confirmMessage">Tem certeza?</div>
+            <div class="confirm-actions">
+                <button id="confirmCancel" class="btn btn-outline">Cancelar</button>
+                <button id="confirmOk" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Produto -->
+    <div id="modalProduto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Adicionar Produto</h2>
+                <button onclick="fecharModal()" style="background:none;border:none;font-size:24px;cursor:pointer;">&times;</button>
+            </div>
+            <form onsubmit="salvarProduto(event)">
+                <div class="form-group">
+                    <label>Código *</label>
+                    <input type="text" id="produtoCodigo" required>
+                </div>
+                <div class="form-group">
+                    <label>Nome *</label>
+                    <input type="text" id="produtoNome" required>
+                </div>
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <input type="text" id="produtoCategoria">
+                </div>
+                <div class="form-group">
+                    <label>Preço *</label>
+                    <input type="number" id="produtoPreco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Estoque *</label>
+                    <input type="number" id="produtoEstoque" required>
+                </div>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Pagamento -->
+    <div id="modalPagamento" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Finalizar Venda</h2>
+                <button onclick="fecharModalPagamento()" style="background:none;border:none;font-size:24px;cursor:pointer;">&times;</button>
+            </div>
+            <div style="margin-bottom:24px;padding:20px;background:#f8fafc;border-radius:12px;text-align:center;">
+                <div style="font-size:13px;color:#64748b;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Total a Pagar</div>
+                <h3 style="color:#1e293b;font-size:42px;font-weight:700;letter-spacing:-1px;" id="totalPagamento">R$ 0,00</h3>
+            </div>
+            <div class="form-group">
+                <label>Forma de Pagamento *</label>
+                <select id="formaPagamento" onchange="calcularTroco()">
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Débito">Débito</option>
+                    <option value="Crédito">Crédito</option>
+                    <option value="PIX">PIX</option>
+                </select>
+            </div>
+            <div class="form-group" id="divValorRecebido">
+                <label>Valor Recebido</label>
+                <input type="number" id="valorRecebido" step="0.01" onkeyup="calcularTroco()">
+            </div>
+            <div class="form-group" id="divTroco" style="display:none;">
+                <label>Troco</label>
+                <div style="background:#d1fae5;padding:16px;border-radius:10px;text-align:center;margin-top:8px;">
+                    <h3 style="color:#065f46;font-size:28px;font-weight:700;margin:0;" id="troco">R$ 0,00</h3>
+                </div>
+            </div>
+            <button class="btn btn-success" onclick="confirmarVenda()"><span class="material-symbols-rounded">check_circle</span> Confirmar Venda</button>
+        </div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        // Variáveis globais
+        let produtos = [];
+        let vendas = [];
+        let carrinho = [];
+        let nextId = 1;
+        let editandoId = null;
+        let usuarioLogado = null;
+
+        // ============ AUTENTICAÇÃO ============
+        
+        // Verificar se é primeiro acesso
+        async function verificarPrimeiroAcesso() {
+            const primeiroAcesso = await ipcRenderer.invoke('verificar-primeiro-acesso');
+            
+            if (primeiroAcesso) {
+                document.getElementById('loginWelcome').textContent = 'Crie sua conta para começar';
+                document.getElementById('loginTabs').style.display = 'none';
+                document.getElementById('formLogin').classList.remove('active');
+                document.getElementById('formCadastro').classList.add('active');
+            }
+        }
+
+        // Mudar entre Login e Cadastro
+        function mudarLoginTab(tipo) {
+            const tabs = document.querySelectorAll('.login-tab');
+            const forms = document.querySelectorAll('.login-form');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tipo === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('formLogin').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('formCadastro').classList.add('active');
+            }
+            
+            ocultarMensagens();
+        }
+
+        // Fazer Login
+        async function fazerLogin(event) {
+            event.preventDefault();
+            ocultarMensagens();
+            
+            const email = document.getElementById('loginEmail').value;
+            const senha = document.getElementById('loginSenha').value;
+            
+            const result = await ipcRenderer.invoke('login', { email, senha });
+            
+            if (result.success) {
+                usuarioLogado = result.usuario;
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('usuarioLogadoNome').textContent = result.usuario.nome;
+                await carregarDadosUsuario();
+                mostrarSucesso('Login realizado com sucesso!');
+            } else {
+                mostrarErro(result.error || 'Email ou senha incorretos');
+            }
+        }
+
+        // Fazer Cadastro
+        async function fazerCadastro(event) {
+            event.preventDefault();
+            ocultarMensagens();
+            
+            const nome = document.getElementById('cadastroNome').value;
+            const email = document.getElementById('cadastroEmail').value;
+            const senha = document.getElementById('cadastroSenha').value;
+            const senhaConfirm = document.getElementById('cadastroSenhaConfirm').value;
+            
+            if (senha !== senhaConfirm) {
+                mostrarErro('As senhas não coincidem!');
+                return;
+            }
+            
+            if (senha.length < 6) {
+                mostrarErro('A senha deve ter no mínimo 6 caracteres!');
+                return;
+            }
+            
+            const result = await ipcRenderer.invoke('criar-usuario', { nome, email, senha });
+            
+            if (result.success) {
+                mostrarSucessoCadastro('Conta criada com sucesso! Faça login agora.');
+                
+                // Limpar campos
+                document.getElementById('cadastroNome').value = '';
+                document.getElementById('cadastroEmail').value = '';
+                document.getElementById('cadastroSenha').value = '';
+                document.getElementById('cadastroSenhaConfirm').value = '';
+                
+                // Voltar para login após 2 segundos
+                setTimeout(() => {
+                    document.getElementById('loginTabs').style.display = 'flex';
+                    mudarLoginTab('login');
+                }, 2000);
+            } else {
+                mostrarErro(result.error || 'Erro ao criar conta. Email já cadastrado?');
+            }
+        }
+
+        // Fazer Logout
+        async function fazerLogout() {
+            const ok = await showConfirm('Deseja realmente sair?');
+            if (!ok) return;
+            await ipcRenderer.invoke('logout');
+            usuarioLogado = null;
+            produtos = [];
+            vendas = [];
+            carrinho = [];
+            
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginSenha').value = '';
+            
+            // Limpar displays
+            document.getElementById('carrinhoItens').innerHTML = '';
+            document.getElementById('tabelaProdutos').innerHTML = '';
+            document.getElementById('tabelaHistorico').innerHTML = '';
+        }
+
+        // Carregar dados do usuário
+        async function carregarDadosUsuario() {
+            // Carregar produtos
+            produtos = await ipcRenderer.invoke('produtos-listar');
+            nextId = produtos.length > 0 ? Math.max(...produtos.map(p => p.id)) + 1 : 1;
+            
+            // Carregar vendas
+            vendas = await ipcRenderer.invoke('vendas-listar');
+            
+            // Atualizar interface
+            carregarProdutosGrid();
+            atualizarEstatisticas();
+            carregarProdutos();
+        }
+
+        // Mensagens de erro/sucesso
+        function mostrarErro(mensagem) {
+            const el = document.getElementById('loginError');
+            el.textContent = mensagem;
+            el.classList.add('show');
+        }
+
+        function mostrarSucessoCadastro(mensagem) {
+            const el = document.getElementById('loginSuccess');
+            el.textContent = mensagem;
+            el.classList.add('show');
+        }
+
+        function ocultarMensagens() {
+            document.getElementById('loginError').classList.remove('show');
+            document.getElementById('loginSuccess').classList.remove('show');
+        }
+
+        // ============ FUNÇÕES DO PDV ============
+
+        // Função de compatibilidade (não usa mais localStorage)
+        function salvarDados() {
+            // Dados salvos automaticamente no banco via IPC
+        }
+
+        // Formatar moeda
+        function formatarMoeda(valor) {
+            return 'R$ ' + parseFloat(valor).toFixed(2).replace('.', ',');
+        }
+
+        // Mudar tab
+        function mudaTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            if (tab === 'produtos') carregarProdutos();
+            if (tab === 'historico') carregarHistorico();
+            if (tab === 'vendas') { carregarProdutosGrid(); atualizarEstatisticas(); }
+        }
+
+        // ========= UI Custom: Toasts e Confirmação =========
+        function showToast(message, type = 'info', timeout = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            const icon = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : type === 'warning' ? 'warning' : 'info';
+            toast.innerHTML = `<span class="material-symbols-rounded">${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(6px)';
+                setTimeout(() => container.removeChild(toast), 180);
+            }, timeout);
+        }
+
+        function showConfirm(message) {
+            return new Promise(resolve => {
+                const modal = document.getElementById('modalConfirm');
+                const titleEl = document.getElementById('confirmTitle');
+                const msg = document.getElementById('confirmMessage');
+                const ok = document.getElementById('confirmOk');
+                const cancel = document.getElementById('confirmCancel');
+                msg.textContent = message;
+                modal.classList.add('active');
+
+                function cleanup(result) {
+                    modal.classList.remove('active');
+                    titleEl.textContent = 'Confirmação';
+                    cancel.style.display = '';
+                    ok.textContent = 'Confirmar';
+                    ok.removeEventListener('click', onOk);
+                    cancel.removeEventListener('click', onCancel);
+                    resolve(result);
+                }
+                function onOk(){ cleanup(true); }
+                function onCancel(){ cleanup(false); }
+                ok.addEventListener('click', onOk);
+                cancel.addEventListener('click', onCancel);
+            });
+        }
+
+        // Mostrar informação em modal (sem botão Cancelar)
+        function showInfo(titulo, mensagem) {
+            const modal = document.getElementById('modalConfirm');
+            const titleEl = document.getElementById('confirmTitle');
+            const msg = document.getElementById('confirmMessage');
+            const ok = document.getElementById('confirmOk');
+            const cancel = document.getElementById('confirmCancel');
+            titleEl.textContent = titulo || 'Informação';
+            msg.textContent = mensagem;
+            cancel.style.display = 'none';
+            ok.textContent = 'Fechar';
+            modal.classList.add('active');
+            function onClose(){
+                modal.classList.remove('active');
+                titleEl.textContent = 'Confirmação';
+                cancel.style.display = '';
+                ok.textContent = 'Confirmar';
+                ok.removeEventListener('click', onClose);
+            }
+            ok.addEventListener('click', onClose);
+        }
+
+        // Carregar produtos grid
+        function carregarProdutosGrid() {
+            const grid = document.getElementById('produtosGrid');
+            grid.innerHTML = produtos.map(p => `
+                <div class="produto-card" onclick="adicionarAoCarrinhoPorId(${p.id})">
+                    <h4>${p.nome}</h4>
+                    <div class="preco">${formatarMoeda(p.preco)}</div>
+                    <div class="estoque"><span class="material-symbols-rounded">inventory_2</span> ${p.estoque}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Adicionar ao carrinho por ID
+        function adicionarAoCarrinhoPorId(id) {
+            const produto = produtos.find(p => p.id === id);
+            if (produto) {
+                adicionarAoCarrinho(produto);
+            }
+        }
+
+        // Buscar produto por código
+        function buscarProduto(e) {
+            if (e.key === 'Enter') {
+                const codigo = document.getElementById('buscaCodigo').value;
+                const produto = produtos.find(p => p.codigo === codigo);
+                if (produto) {
+                    adicionarAoCarrinho(produto);
+                    document.getElementById('buscaCodigo').value = '';
+                } else {
+                    showToast('Produto não encontrado!', 'warning');
+                }
+            }
+        }
+
+        // Adicionar ao carrinho
+        function adicionarAoCarrinho(produto) {
+            const item = carrinho.find(i => i.id === produto.id);
+            if (item) {
+                if (item.quantidade < produto.estoque) {
+                    item.quantidade++;
+                } else {
+                    showToast('Estoque insuficiente!', 'warning');
+                    return;
+                }
+            } else {
+                carrinho.push({...produto, quantidade: 1});
+            }
+            atualizarCarrinho();
+        }
+
+        // Remover do carrinho
+        function removerDoCarrinho(id) {
+            carrinho = carrinho.filter(i => i.id !== id);
+            atualizarCarrinho();
+        }
+
+        // Atualizar carrinho
+        function atualizarCarrinho() {
+            const container = document.getElementById('carrinhoItens');
+            container.innerHTML = carrinho.map(item => `
+                <div class="carrinho-item">
+                    <div class="nome">${item.nome}</div>
+                    <div class="quantidade">
+                        <button onclick="alterarQuantidade(${item.id}, -1)" style="background:#e2e8f0;color:#475569;">-</button>
+                        ${item.quantidade}
+                        <button onclick="alterarQuantidade(${item.id}, 1)" style="background:#059669;color:white;">+</button>
+                    </div>
+                    <div style="font-weight:600;color:#1e293b;">${formatarMoeda(item.preco * item.quantidade)}</div>
+                    <button onclick="removerDoCarrinho(${item.id})"><span class="material-symbols-rounded">delete</span></button>
+                </div>
+            `).join('');
+
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const descontoEl = document.getElementById('desconto');
+            const desconto = descontoEl ? parseFloat(descontoEl.value || 0) : 0;
+            const total = subtotal - desconto;
+
+            document.getElementById('subtotal').textContent = formatarMoeda(subtotal);
+            document.getElementById('total').textContent = formatarMoeda(total);
+        }
+
+        // Alterar quantidade
+        function alterarQuantidade(id, delta) {
+            const item = carrinho.find(i => i.id === id);
+            const produto = produtos.find(p => p.id === id);
+            if (item) {
+                const novaQtd = item.quantidade + delta;
+                if (novaQtd > 0 && novaQtd <= produto.estoque) {
+                    item.quantidade = novaQtd;
+                    atualizarCarrinho();
+                } else if (novaQtd > produto.estoque) {
+                    showToast('Estoque insuficiente!', 'warning');
+                }
+            }
+        }
+
+        // Limpar carrinho
+        async function limparCarrinho() {
+            const ok = await showConfirm('Deseja limpar o carrinho?');
+            if (!ok) return;
+            carrinho = [];
+            document.getElementById('desconto').value = 0;
+            atualizarCarrinho();
+            showToast('Carrinho limpo', 'success');
+        }
+
+        // Finalizar venda
+        function finalizarVenda() {
+            if (carrinho.length === 0) {
+                showToast('Carrinho vazio!', 'warning');
+                return;
+            }
+
+            const total = parseFloat(document.getElementById('total').textContent.replace('R$ ', '').replace(',', '.'));
+            document.getElementById('totalPagamento').textContent = formatarMoeda(total);
+            document.getElementById('formaPagamento').value = 'Dinheiro';
+            document.getElementById('valorRecebido').value = total.toFixed(2);
+            calcularTroco();
+            document.getElementById('modalPagamento').classList.add('active');
+        }
+
+        // Calcular troco
+        function calcularTroco() {
+            const forma = document.getElementById('formaPagamento').value;
+            const divRecebido = document.getElementById('divValorRecebido');
+            const divTroco = document.getElementById('divTroco');
+
+            if (forma === 'Dinheiro') {
+                divRecebido.style.display = 'block';
+                const total = parseFloat(document.getElementById('totalPagamento').textContent.replace('R$ ', '').replace(',', '.'));
+                const recebido = parseFloat(document.getElementById('valorRecebido').value || 0);
+                const troco = recebido - total;
+                if (troco >= 0) {
+                    divTroco.style.display = 'block';
+                    document.getElementById('troco').textContent = formatarMoeda(troco);
+                } else {
+                    divTroco.style.display = 'none';
+                }
+            } else {
+                divRecebido.style.display = 'none';
+                divTroco.style.display = 'none';
+            }
+        }
+
+        // Confirmar venda
+        async function confirmarVenda() {
+            const total = parseFloat(document.getElementById('totalPagamento').textContent.replace('R$ ', '').replace(',', '.'));
+            const forma = document.getElementById('formaPagamento').value;
+            const desconto = parseFloat(document.getElementById('desconto').value || 0);
+
+            if (forma === 'Dinheiro') {
+                const recebido = parseFloat(document.getElementById('valorRecebido').value || 0);
+                if (recebido < total) {
+                    showToast('Valor recebido insuficiente!', 'error');
+                    return;
+                }
+            }
+
+            const venda = {
+                total: total,
+                desconto: desconto,
+                forma_pagamento: forma
+            };
+
+            const itens = carrinho.map(i => ({
+                id: i.id,
+                quantidade: i.quantidade,
+                preco: i.preco
+            }));
+
+            const result = await ipcRenderer.invoke('venda-criar', { venda, itens });
+
+            if (result.success) {
+                // Atualizar estoque localmente
+                carrinho.forEach(item => {
+                    const produto = produtos.find(p => p.id === item.id);
+                    if (produto) produto.estoque -= item.quantidade;
+                });
+
+                // Recarregar vendas
+                vendas = await ipcRenderer.invoke('vendas-listar');
+                
+                showToast('Venda realizada com sucesso!', 'success');
+                carrinho = [];
+                document.getElementById('desconto').value = 0;
+                atualizarCarrinho();
+                fecharModalPagamento();
+                atualizarEstatisticas();
+                carregarProdutosGrid();
+            } else {
+                showToast('Erro ao salvar venda: ' + (result.error || 'Erro desconhecido'), 'error');
+            }
+        }
+
+        // Fechar modal pagamento
+        function fecharModalPagamento() {
+            document.getElementById('modalPagamento').classList.remove('active');
+        }
+
+        // Estatísticas
+        async function atualizarEstatisticas() {
+            const stats = await ipcRenderer.invoke('vendas-estatisticas');
+            
+            document.getElementById('vendasHoje').textContent = formatarMoeda(stats.vendasHoje);
+            document.getElementById('vendasMes').textContent = formatarMoeda(stats.vendasMes);
+            document.getElementById('totalProdutos').textContent = stats.totalProdutos;
+        }
+
+        // Produtos
+        function carregarProdutos() {
+            const tbody = document.getElementById('tabelaProdutos');
+            tbody.innerHTML = produtos.map(p => `
+                <tr>
+                    <td><strong>${p.codigo}</strong></td>
+                    <td>${p.nome}</td>
+                    <td>${p.categoria || '-'}</td>
+                    <td style="font-weight:600;color:#059669;">${formatarMoeda(p.preco)}</td>
+                    <td><span class="badge ${p.estoque < 10 ? 'badge-warning' : 'badge-success'}"><span class="material-symbols-rounded">inventory_2</span> ${p.estoque}</span></td>
+                    <td>
+                        <button class="btn btn-primary" style="padding:8px 14px;margin-right:5px;font-size:13px;" onclick="editarProduto(${p.id})"><span class="material-symbols-rounded">edit</span> Editar</button>
+                        <button class="btn" style="padding:8px 14px;background:#dc2626;color:white;font-size:13px;" onclick="deletarProduto(${p.id})"><span class="material-symbols-rounded">delete</span> Excluir</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function abrirModalProduto() {
+            editandoId = null;
+            document.getElementById('modalTitle').textContent = 'Adicionar Produto';
+            document.getElementById('produtoCodigo').value = '';
+            document.getElementById('produtoNome').value = '';
+            document.getElementById('produtoCategoria').value = '';
+            document.getElementById('produtoPreco').value = '';
+            document.getElementById('produtoEstoque').value = '';
+            document.getElementById('modalProduto').classList.add('active');
+        }
+
+        function editarProduto(id) {
+            const produto = produtos.find(p => p.id === id);
+            editandoId = id;
+            document.getElementById('modalTitle').textContent = 'Editar Produto';
+            document.getElementById('produtoCodigo').value = produto.codigo;
+            document.getElementById('produtoNome').value = produto.nome;
+            document.getElementById('produtoCategoria').value = produto.categoria;
+            document.getElementById('produtoPreco').value = produto.preco;
+            document.getElementById('produtoEstoque').value = produto.estoque;
+            document.getElementById('modalProduto').classList.add('active');
+        }
+
+        async function salvarProduto(e) {
+            e.preventDefault();
+            const produto = {
+                codigo: document.getElementById('produtoCodigo').value,
+                nome: document.getElementById('produtoNome').value,
+                categoria: document.getElementById('produtoCategoria').value,
+                preco: parseFloat(document.getElementById('produtoPreco').value),
+                estoque: parseInt(document.getElementById('produtoEstoque').value)
+            };
+
+            let result;
+            if (editandoId) {
+                result = await ipcRenderer.invoke('produto-atualizar', { id: editandoId, produto });
+                if (result.success) {
+                    const p = produtos.find(p => p.id === editandoId);
+                    Object.assign(p, produto);
+                }
+            } else {
+                result = await ipcRenderer.invoke('produto-criar', produto);
+                if (result.success) {
+                    produto.id = result.id;
+                    produtos.push(produto);
+                }
+            }
+
+            if (result.success) {
+                carregarProdutos();
+                carregarProdutosGrid();
+                fecharModal();
+            } else {
+                showToast('Erro ao salvar produto: ' + (result.error || 'Código já existe?'), 'error');
+            }
+        }
+
+        async function deletarProduto(id) {
+            const ok = await showConfirm('Deseja realmente excluir este produto?');
+            if (!ok) return;
+            const result = await ipcRenderer.invoke('produto-deletar', id);
+            if (result.success) {
+                produtos = produtos.filter(p => p.id !== id);
+                carregarProdutos();
+                carregarProdutosGrid();
+                showToast('Produto excluído', 'success');
+            }
+        }
+
+        function fecharModal() {
+            document.getElementById('modalProduto').classList.remove('active');
+        }
+
+        // Histórico
+        function carregarHistorico() {
+            const tbody = document.getElementById('tabelaHistorico');
+            tbody.innerHTML = [...vendas].reverse().map(v => `
+                <tr>
+                    <td><strong>#${v.id}</strong></td>
+                    <td>${new Date(v.data).toLocaleString('pt-BR')}</td>
+                    <td><span class="material-symbols-rounded">shopping_bag</span> ${v.itens.length} ${v.itens.length === 1 ? 'item' : 'itens'}</td>
+                    <td style="font-weight:700;color:#059669;">${formatarMoeda(v.total)}</td>
+                    <td><span class="badge badge-success">${v.formaPagamento}</span></td>
+                    <td><button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="verDetalhesVenda(${v.id})"><span class="material-symbols-rounded">visibility</span> Ver Detalhes</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function verDetalhesVenda(id) {
+            const venda = vendas.find(v => v.id === id);
+            const detalhes = venda.itens.map(i => `${i.nome} (${i.quantidade}x) - ${formatarMoeda(i.preco * i.quantidade)}`).join('\n');
+            showInfo(`VENDA #${venda.id}`, `${detalhes}\n\nDesconto: ${formatarMoeda(venda.desconto)}\nTOTAL: ${formatarMoeda(venda.total)}\nPagamento: ${venda.formaPagamento}`);
+        }
+
+        // Inicializar
+        verificarPrimeiroAcesso();
+    </script>
+</body>
+</html>
+
