@@ -1,6 +1,6 @@
 {
   "name": "pdv-desktop",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "Sistema PDV Desktop - Nativo para Windows",
   "main": "main.js",
   "scripts": {
