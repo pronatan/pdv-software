@@ -30,8 +30,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Azul do sistema com contraste suave branco */
-            background: linear-gradient(135deg, #1e293b 0%, #334155 45%, #3b82f6 100%);
+            /* Verde do sistema com contraste suave branco */
+            background: linear-gradient(135deg, #1e293b 0%, #334155 45%, #059669 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,7 +64,7 @@
 
         .login-header .material-symbols-rounded {
             font-size: 4rem;
-            color: #3b82f6;
+            color: #059669;
             margin-bottom: 1rem;
         }
 
@@ -98,8 +98,8 @@
         }
 
         .login-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #059669;
+            border-bottom-color: #059669;
         }
 
         .login-form {
@@ -141,21 +141,22 @@
 
         .form-group-login input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
         }
 
         .password-toggle {
             position: absolute;
-            right: 14px;
-            bottom: 12px;
+            right: 12px;
+            top: calc(50% + 8px);
+            transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
             color: #64748b;
             padding: 0;
-            width: 24px;
-            height: 24px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -164,23 +165,23 @@
         }
 
         .password-toggle:hover {
-            color: #3b82f6;
+            color: #059669;
         }
 
         .password-toggle:active {
-            transform: scale(0.95);
+            transform: translateY(-50%) scale(0.95);
         }
 
-        .password-toggle .material-symbols-rounded {
-            font-size: 22px;
-            line-height: 1;
+        .password-toggle svg {
+            width: 26px;
+            height: 26px;
             display: block;
         }
 
         .btn-login {
             width: 100%;
             padding: 14px;
-            background: #3b82f6;
+            background: #059669;
             color: white;
             border: none;
             border-radius: 8px;
@@ -201,9 +202,9 @@
         }
 
         .btn-login:hover {
-            background: #2563eb;
+            background: #047857;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
         }
 
         .btn-login:active {
@@ -254,6 +255,72 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .header-menu {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .menu-button {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .menu-button:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        .menu-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            min-width: 220px;
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        .menu-dropdown.active {
+            display: block;
+        }
+        
+        .menu-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #475569;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .menu-item:hover {
+            background: #f8fafc;
+            color: #059669;
+        }
+        
+        .menu-item .material-symbols-rounded {
+            font-size: 18px;
         }
 
         .header h1 {
@@ -267,7 +334,7 @@
 
 .header h1 i, .header h1 .material-symbols-rounded {
             font-size: 24px;
-            color: #3b82f6;
+            color: #059669;
         }
 
         .tabs {
@@ -297,13 +364,13 @@
         }
 
         .tab:hover {
-            color: #3b82f6;
+            color: #059669;
             background: #f8fafc;
         }
 
         .tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
+            color: #059669;
+            border-bottom-color: #059669;
             background: transparent;
         }
 
@@ -354,8 +421,8 @@
         }
 
         .busca-produto input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
         }
 
         .produtos-grid {
@@ -377,7 +444,7 @@
         .produto-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            border-color: #3b82f6;
+            border-color: #059669;
         }
 
         .produto-card:active {
@@ -432,7 +499,7 @@
         }
 
         .carrinho h3 i {
-            color: #3b82f6;
+            color: #059669;
         }
 
         .carrinho-item {
@@ -538,14 +605,14 @@
         }
 
         .btn-primary {
-            background: #3b82f6;
+            background: #059669;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #2563eb;
+            background: #047857;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
         }
 
         .btn-primary:active {
@@ -731,8 +798,8 @@
 
         .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
         }
 
         .estatisticas {
@@ -770,7 +837,7 @@
 
         .stat-card h3 i {
             font-size: 16px;
-            color: #3b82f6;
+            color: #059669;
         }
 
         .stat-card .valor {
@@ -824,7 +891,8 @@
                     <label>Senha</label>
                     <input type="password" id="loginSenha" required placeholder="••••••••">
                     <button type="button" class="password-toggle" onclick="togglePassword('loginSenha', this)">
-                        <span class="material-symbols-rounded">visibility</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="eye-icon eye-closed"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a13.4 13.4 0 0 0 3 2.685M21 10a13.4 13.4 0 0 1-3 2.685m-8 1.624L9.5 16.5m.5-2.19a10.6 10.6 0 0 0 4 0m-4 0a11.3 11.3 0 0 1-4-1.625m8 1.624l.5 2.191m-.5-2.19a11.3 11.3 0 0 0 4-1.625m0 0l1.5 1.815M6 12.685L4.5 14.5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="eye-icon eye-open" style="display:none;"><g fill="currentColor"><path d="M15.83 7.42C15.1 6.38 12.38 3 8 3S.9 6.38.17 7.42a.99.99 0 0 0 0 1.16C.9 9.62 3.62 13 8 13s7.1-3.38 7.83-4.42a.99.99 0 0 0 0-1.16M8 11c-1.65 0-3-1.35-3-3s1.35-3 3-3s3 1.35 3 3s-1.35 3-3 3"/><circle cx="8" cy="8" r="2"/></g></svg>
                     </button>
                 </div>
                 <button type="submit" class="btn-login">
@@ -846,14 +914,16 @@
                     <label>Senha</label>
                     <input type="password" id="cadastroSenha" required placeholder="••••••••" minlength="6">
                     <button type="button" class="password-toggle" onclick="togglePassword('cadastroSenha', this)">
-                        <span class="material-symbols-rounded">visibility</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="eye-icon eye-closed"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a13.4 13.4 0 0 0 3 2.685M21 10a13.4 13.4 0 0 1-3 2.685m-8 1.624L9.5 16.5m.5-2.19a10.6 10.6 0 0 0 4 0m-4 0a11.3 11.3 0 0 1-4-1.625m8 1.624l.5 2.191m-.5-2.19a11.3 11.3 0 0 0 4-1.625m0 0l1.5 1.815M6 12.685L4.5 14.5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="eye-icon eye-open" style="display:none;"><g fill="currentColor"><path d="M15.83 7.42C15.1 6.38 12.38 3 8 3S.9 6.38.17 7.42a.99.99 0 0 0 0 1.16C.9 9.62 3.62 13 8 13s7.1-3.38 7.83-4.42a.99.99 0 0 0 0-1.16M8 11c-1.65 0-3-1.35-3-3s1.35-3 3-3s3 1.35 3 3s-1.35 3-3 3"/><circle cx="8" cy="8" r="2"/></g></svg>
                     </button>
                 </div>
                 <div class="form-group-login">
                     <label>Confirmar Senha</label>
                     <input type="password" id="cadastroSenhaConfirm" required placeholder="••••••••" minlength="6">
                     <button type="button" class="password-toggle" onclick="togglePassword('cadastroSenhaConfirm', this)">
-                        <span class="material-symbols-rounded">visibility</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="eye-icon eye-closed"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a13.4 13.4 0 0 0 3 2.685M21 10a13.4 13.4 0 0 1-3 2.685m-8 1.624L9.5 16.5m.5-2.19a10.6 10.6 0 0 0 4 0m-4 0a11.3 11.3 0 0 1-4-1.625m8 1.624l.5 2.191m-.5-2.19a11.3 11.3 0 0 0 4-1.625m0 0l1.5 1.815M6 12.685L4.5 14.5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="eye-icon eye-open" style="display:none;"><g fill="currentColor"><path d="M15.83 7.42C15.1 6.38 12.38 3 8 3S.9 6.38.17 7.42a.99.99 0 0 0 0 1.16C.9 9.62 3.62 13 8 13s7.1-3.38 7.83-4.42a.99.99 0 0 0 0-1.16M8 11c-1.65 0-3-1.35-3-3s1.35-3 3-3s3 1.35 3 3s-1.35 3-3 3"/><circle cx="8" cy="8" r="2"/></g></svg>
                     </button>
                 </div>
                 <button type="submit" class="btn-login">
@@ -868,7 +938,27 @@
             <h1><span class="material-symbols-rounded">point_of_sale</span> PDV Desktop</h1>
             <div style="display:flex;align-items:center;gap:20px;">
                 <span id="usuarioLogadoNome" style="color:#cbd5e1;"></span>
-                <button onclick="fazerLogout()" class="btn btn-secondary" style="padding:8px 16px;"><span class="material-symbols-rounded">logout</span> Sair</button>
+                <div class="header-menu">
+                    <button class="menu-button" onclick="toggleMenu()">
+                        <span class="material-symbols-rounded">menu</span>
+                        Menu
+                    </button>
+                    <div class="menu-dropdown" id="menuDropdown">
+                        <button class="menu-item" onclick="mudaTab('conta'); toggleMenu();">
+                            <span class="material-symbols-rounded">account_circle</span>
+                            A Conta
+                        </button>
+                        <button class="menu-item" onclick="mudaTab('gerenciamento'); toggleMenu();">
+                            <span class="material-symbols-rounded">manage_accounts</span>
+                            Gerenciamento de Vendas
+                        </button>
+                        <hr style="margin:4px 0;border:none;border-top:1px solid #e2e8f0;">
+                        <button class="menu-item" onclick="fazerLogout(); toggleMenu();">
+                            <span class="material-symbols-rounded">logout</span>
+                            Sair
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -963,6 +1053,70 @@
                         </tr>
                     </thead>
                     <tbody id="tabelaHistorico"></tbody>
+                </table>
+            </div>
+            
+            <!-- TAB A CONTA -->
+            <div id="tab-conta" class="tab-content">
+                <div style="max-width:600px;">
+                    <h2 style="margin-bottom:24px;">Minha Conta</h2>
+                    <div class="stat-card" style="margin-bottom:20px;">
+                        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+                            <div style="width:80px;height:80px;border-radius:50%;background:#059669;display:flex;align-items:center;justify-content:center;">
+                                <span class="material-symbols-rounded" style="font-size:48px;color:white;">account_circle</span>
+                            </div>
+                            <div>
+                                <h3 style="font-size:20px;color:#1e293b;margin-bottom:4px;" id="contaNome"></h3>
+                                <p style="color:#64748b;font-size:14px;" id="contaEmail"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3 style="margin-bottom:16px;color:#64748b;font-size:14px;font-weight:600;">INFORMAÇÕES DA CONTA</h3>
+                        <div style="margin-bottom:12px;">
+                            <label style="display:block;color:#475569;font-size:12px;font-weight:600;margin-bottom:4px;">Nome Completo</label>
+                            <p style="color:#1e293b;font-size:14px;" id="contaInfoNome"></p>
+                        </div>
+                        <div style="margin-bottom:12px;">
+                            <label style="display:block;color:#475569;font-size:12px;font-weight:600;margin-bottom:4px;">Email</label>
+                            <p style="color:#1e293b;font-size:14px;" id="contaInfoEmail"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TAB GERENCIAMENTO DE VENDAS -->
+            <div id="tab-gerenciamento" class="tab-content">
+                <div style="margin-bottom:24px;">
+                    <h2 style="margin-bottom:20px;">Gerenciamento de Vendas</h2>
+                    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
+                        <div style="flex:1;min-width:200px;">
+                            <label style="display:block;margin-bottom:8px;font-weight:600;color:#475569;font-size:14px;">Buscar por Data</label>
+                            <input type="date" id="filtroData" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;" onchange="filtrarVendas()">
+                        </div>
+                        <div style="flex:1;min-width:200px;">
+                            <label style="display:block;margin-bottom:8px;font-weight:600;color:#475569;font-size:14px;">Buscar por Produto</label>
+                            <input type="text" id="filtroProduto" placeholder="Digite o nome do produto..." style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;" onkeyup="filtrarVendas()">
+                        </div>
+                        <div style="display:flex;align-items:flex-end;">
+                            <button class="btn btn-secondary" onclick="limparFiltros()" style="padding:10px 20px;">
+                                <span class="material-symbols-rounded">clear</span> Limpar Filtros
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Data/Hora</th>
+                            <th>Produtos e Quantidades</th>
+                            <th>Total Venda</th>
+                            <th>Forma Pagamento</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaGerenciamento"></tbody>
                 </table>
             </div>
         </div>
@@ -1098,14 +1252,17 @@
         // Alternar mostrar/ocultar senha
         function togglePassword(inputId, button) {
             const input = document.getElementById(inputId);
-            const icon = button.querySelector('.material-symbols-rounded');
+            const eyeClosed = button.querySelector('.eye-closed');
+            const eyeOpen = button.querySelector('.eye-open');
             
             if (input.type === 'password') {
                 input.type = 'text';
-                icon.textContent = 'visibility_off';
+                eyeClosed.style.display = 'none';
+                eyeOpen.style.display = 'block';
             } else {
                 input.type = 'password';
-                icon.textContent = 'visibility';
+                eyeClosed.style.display = 'block';
+                eyeOpen.style.display = 'none';
             }
         }
 
@@ -1211,6 +1368,7 @@
             carregarProdutosGrid();
             atualizarEstatisticas();
             carregarProdutos();
+            carregarConta();
         }
 
         // Mensagens de erro/sucesso
@@ -1243,16 +1401,39 @@
             return 'R$ ' + parseFloat(valor).toFixed(2).replace('.', ',');
         }
 
+        // Toggle menu
+        function toggleMenu() {
+            const menu = document.getElementById('menuDropdown');
+            menu.classList.toggle('active');
+        }
+        
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menuDropdown');
+            const menuButton = document.querySelector('.menu-button');
+            if (menu && menuButton && !menu.contains(event.target) && !menuButton.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+        
         // Mudar tab
         function mudaTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
             document.getElementById('tab-' + tab).classList.add('active');
             
             if (tab === 'produtos') carregarProdutos();
             if (tab === 'historico') carregarHistorico();
-            if (tab === 'vendas') { carregarProdutosGrid(); atualizarEstatisticas(); }
+            if (tab === 'vendas') { 
+                carregarProdutosGrid(); 
+                atualizarEstatisticas(); 
+                atualizarCarrinho();
+            }
+            if (tab === 'conta') carregarConta();
+            if (tab === 'gerenciamento') carregarGerenciamento();
         }
 
         // ========= UI Custom: Toasts e Confirmação =========
@@ -1321,6 +1502,27 @@
         // Carregar produtos grid
         function carregarProdutosGrid() {
             const grid = document.getElementById('produtosGrid');
+            
+            if (!grid) {
+                console.error('Elemento produtosGrid não encontrado');
+                return;
+            }
+            
+            if (!produtos || produtos.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #64748b;">
+                        <span class="material-symbols-rounded" style="font-size: 64px; display: block; margin-bottom: 16px; opacity: 0.5;">inventory_2</span>
+                        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #475569;">Nenhum produto cadastrado</h3>
+                        <p style="font-size: 14px; margin-bottom: 24px;">Cadastre produtos na aba "Produtos" para começar a vender</p>
+                        <button class="btn btn-primary" onclick="mudaTab('produtos')" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <span class="material-symbols-rounded">add_circle</span>
+                            Cadastrar Produto
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
             grid.innerHTML = produtos.map(p => `
                 <div class="produto-card" onclick="adicionarAoCarrinhoPorId(${p.id})">
                     <h4>${p.nome}</h4>
@@ -1637,9 +1839,109 @@
             const detalhes = venda.itens.map(i => `${i.nome} (${i.quantidade}x) - ${formatarMoeda(i.preco * i.quantidade)}`).join('\n');
             showInfo(`VENDA #${venda.id}`, `${detalhes}\n\nDesconto: ${formatarMoeda(venda.desconto)}\nTOTAL: ${formatarMoeda(venda.total)}\nPagamento: ${venda.formaPagamento}`);
         }
+        
+        // Carregar Conta
+        function carregarConta() {
+            if (usuarioLogado) {
+                document.getElementById('contaNome').textContent = usuarioLogado.nome;
+                document.getElementById('contaEmail').textContent = usuarioLogado.email;
+                document.getElementById('contaInfoNome').textContent = usuarioLogado.nome;
+                document.getElementById('contaInfoEmail').textContent = usuarioLogado.email;
+            }
+        }
+        
+        // Variável global para vendas filtradas
+        let vendasFiltradas = [];
+        
+        // Carregar Gerenciamento de Vendas
+        function carregarGerenciamento() {
+            vendasFiltradas = [...vendas].reverse();
+            atualizarTabelaGerenciamento();
+        }
+        
+        // Atualizar tabela de gerenciamento
+        function atualizarTabelaGerenciamento() {
+            const tbody = document.getElementById('tabelaGerenciamento');
+            if (vendasFiltradas.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:#64748b;">Nenhuma venda encontrada</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = vendasFiltradas.map(v => {
+                const produtosLista = v.itens.map(i => 
+                    `${i.nome} (${i.quantidade}x) - ${formatarMoeda(i.preco * i.quantidade)}`
+                ).join('<br>');
+                const totalProdutos = v.itens.reduce((sum, item) => sum + item.quantidade, 0);
+                
+                return `
+                    <tr>
+                        <td><strong>#${v.id}</strong></td>
+                        <td>${new Date(v.data).toLocaleString('pt-BR')}</td>
+                        <td style="max-width:300px;">
+                            <div style="font-weight:600;margin-bottom:4px;">${totalProdutos} ${totalProdutos === 1 ? 'produto' : 'produtos'}</div>
+                            <div style="font-size:12px;color:#64748b;">${produtosLista}</div>
+                        </td>
+                        <td style="font-weight:700;color:#059669;font-size:16px;">${formatarMoeda(v.total)}</td>
+                        <td><span class="badge badge-success">${v.formaPagamento}</span></td>
+                        <td>
+                            <button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="verDetalhesVenda(${v.id})">
+                                <span class="material-symbols-rounded">visibility</span> Detalhes
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // Filtrar vendas
+        function filtrarVendas() {
+            const filtroData = document.getElementById('filtroData').value;
+            const filtroProduto = document.getElementById('filtroProduto').value.toLowerCase().trim();
+            
+            vendasFiltradas = [...vendas].reverse().filter(v => {
+                // Filtro por data
+                if (filtroData) {
+                    const vendaData = new Date(v.data).toISOString().split('T')[0];
+                    if (vendaData !== filtroData) return false;
+                }
+                
+                // Filtro por produto
+                if (filtroProduto) {
+                    const temProduto = v.itens.some(item => 
+                        item.nome.toLowerCase().includes(filtroProduto)
+                    );
+                    if (!temProduto) return false;
+                }
+                
+                return true;
+            });
+            
+            atualizarTabelaGerenciamento();
+        }
+        
+        // Limpar filtros
+        function limparFiltros() {
+            document.getElementById('filtroData').value = '';
+            document.getElementById('filtroProduto').value = '';
+            carregarGerenciamento();
+        }
 
         // Inicializar
         verificarPrimeiroAcesso();
+        
+        // Garantir que a área de produtos seja carregada quando a página carrega
+        // (se já estiver logado ou após login)
+        setTimeout(() => {
+            const vendasTab = document.getElementById('tab-vendas');
+            if (vendasTab && vendasTab.classList.contains('active')) {
+                if (produtos && produtos.length > 0) {
+                    carregarProdutosGrid();
+                } else if (produtos && produtos.length === 0) {
+                    carregarProdutosGrid(); // Vai mostrar a mensagem de "nenhum produto"
+                }
+                atualizarEstatisticas();
+            }
+        }, 500);
     </script>
 </body>
 </html>

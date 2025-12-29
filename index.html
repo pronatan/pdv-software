@@ -7,10 +7,21 @@
     <title>PDV Desktop - Sistema de Ponto de Venda Profissional</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet" />
     
     <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --primary-light: #d1fae5;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --gray-light: #f8fafc;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,26 +29,33 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #1e293b;
-            background: #fff;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
         }
 
-        /* Header */
-        header {
-            background: #1e293b;
-            color: white;
-            padding: 1rem 0;
+        /* Header único */
+        .navbar {
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 1.25rem 0;
             z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(5, 150, 105, 0.1);
+            transition: all 0.3s ease;
         }
 
-        .header-content {
-            max-width: 1200px;
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -45,637 +63,1109 @@
             align-items: center;
         }
 
-        .logo {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.5rem;
-            font-weight: 700;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--white);
         }
 
-        .logo .material-symbols-rounded {
-            color: #3b82f6;
-            font-size: 1.8rem;
-        }
-
-        .nav-links {
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
         }
 
-        .nav-links a {
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
             color: #e2e8f0;
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: #3b82f6;
+        .nav-link .icon {
+            font-size: 18px;
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            padding: 120px 2rem 80px;
-            text-align: center;
-            margin-top: 70px;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Hero Section - Design Único */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, -30px) rotate(180deg); }
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(5, 150, 105, 0.15);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
-            letter-spacing: -1px;
-            line-height: 1.2;
+            color: white;
+            letter-spacing: -2px;
         }
 
-        .hero-highlight {
-            color: #3b82f6;
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--primary) 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
+            font-size: 1.25rem;
             color: #cbd5e1;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            max-width: 560px;
         }
 
-        .download-btn {
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-primary {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: #3b82f6;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 18px 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        .download-btn:hover {
-            background: #2563eb;
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 12px 32px rgba(5, 150, 105, 0.5);
         }
 
-        .download-info {
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .download-meta {
             margin-top: 1.5rem;
-            font-size: 0.95rem;
-            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
-        /* Stats */
-        .stats {
-            background: white;
-            padding: 3rem 2rem;
-            border-bottom: 1px solid #e2e8f0;
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .visual-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .visual-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        /* Stats Cards - Design Único */
+        .stats-section {
+            padding: 4rem 2rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
         .stats-grid {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card-custom {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        .stat-item .material-symbols-rounded {
-            font-size: 3rem;
-            color: #3b82f6;
-            margin-bottom: 1rem;
+        .stat-card-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            transform: scaleX(0);
+            transition: transform 0.4s;
         }
 
-        .stat-number {
+        .stat-card-custom:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card-custom:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(5, 150, 105, 0.15);
+        }
+
+        .stat-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #a7f3d0 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .stat-icon-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 24px;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .stat-card-custom:hover .stat-icon-wrapper::after {
+            opacity: 1;
+        }
+
+        .stat-icon-wrapper .material-symbols-rounded {
             font-size: 2.5rem;
-            font-weight: 700;
-            color: #1e293b;
+            color: var(--primary-dark);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--dark);
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-label {
-            color: #64748b;
             font-size: 1rem;
+            color: var(--gray);
+            font-weight: 600;
         }
 
-        /* Features */
-        .features {
-            padding: 5rem 2rem;
-            background: #f8fafc;
+        /* Features Section - Design Único */
+        .features-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 50%, #f8fafc 100%);
+            position: relative;
         }
 
-        .section-header {
+        .section-header-custom {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+            position: relative;
         }
 
-        .section-title {
-            font-size: 2.5rem;
+        .section-label {
+            display: inline-block;
+            color: var(--primary);
             font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 1rem;
-            color: #1e293b;
         }
 
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #64748b;
+        .section-title-custom {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            letter-spacing: -1.5px;
+        }
+
+        .section-subtitle-custom {
+            font-size: 1.25rem;
+            color: var(--gray);
             max-width: 600px;
             margin: 0 auto;
         }
 
-        .features-grid {
-            max-width: 1200px;
+        .features-grid-custom {
+            max-width: 1280px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2rem;
         }
 
-        .feature-card {
-            background: white;
-            padding: 2rem;
+        .feature-card-custom {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 2px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card-custom::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card-custom:hover::after {
+            opacity: 0.3;
+        }
+
+        .feature-card-custom:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 24px 48px rgba(5, 150, 105, 0.15);
+        }
+
+        .feature-icon-custom {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #a7f3d0 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .feature-icon-custom .material-symbols-rounded {
+            font-size: 2rem;
+            color: var(--primary-dark);
+        }
+
+        .feature-card-custom h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card-custom p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Screenshot Section */
+        .screenshot-section {
+            padding: 6rem 2rem;
+            background: var(--dark-light);
+            position: relative;
+        }
+
+        .screenshot-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .screenshot-frame {
+            background: var(--dark);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .screenshot-frame img {
+            width: 100%;
+            height: auto;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: block;
+        }
+
+        /* Requirements Section */
+        .requirements-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .requirements-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .requirements-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .requirement-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            background: var(--white);
+            border-radius: 12px;
             border: 1px solid #e2e8f0;
             transition: all 0.3s;
         }
 
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        .requirement-row:hover {
+            border-color: var(--primary);
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
         }
 
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: #eff6ff;
+        .requirement-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            flex-shrink: 0;
         }
 
-        .feature-icon .material-symbols-rounded {
-            font-size: 1.8rem;
-            color: #3b82f6;
+        .requirement-icon .material-symbols-rounded {
+            color: var(--primary-dark);
+            font-size: 24px;
         }
 
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            color: #1e293b;
-        }
-
-        .feature-card p {
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        /* How it works */
-        .how-it-works {
-            padding: 5rem 2rem;
-            background: white;
-        }
-
-        .steps {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            gap: 2rem;
-        }
-
-        .step {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            min-width: 60px;
-            height: 60px;
-            background: #3b82f6;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .step-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #1e293b;
-        }
-
-        .step-content p {
-            color: #64748b;
+        .requirement-text {
             font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 500;
         }
 
-        /* Screenshots */
-        .screenshots {
-            padding: 5rem 2rem;
-            background: #f8fafc;
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .screenshot-preview {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8f0;
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
-        .screenshot-placeholder {
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #3b82f6;
-            font-size: 4rem;
-        }
-
-        /* System Requirements */
-        .requirements {
-            padding: 5rem 2rem;
-            background: white;
-        }
-
-        .requirements-content {
+        .cta-container {
             max-width: 800px;
             margin: 0 auto;
-            background: #f8fafc;
-            padding: 3rem;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .requirement-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .requirement-item .material-symbols-rounded {
-            color: #10b981;
-            font-size: 1.5rem;
-        }
-
-        /* CTA */
-        .cta {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            padding: 5rem 2rem;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
         }
 
-        .cta p {
-            font-size: 1.2rem;
+        .cta-description {
+            font-size: 1.25rem;
             color: #cbd5e1;
             margin-bottom: 2.5rem;
         }
 
         /* Footer */
-        footer {
-            background: #0f172a;
+        .footer {
+            background: var(--dark);
             color: #94a3b8;
-            padding: 3rem 2rem 2rem;
-            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
         .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand .brand {
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: #64748b;
+            line-height: 1.7;
         }
 
         .footer-links {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
-        .footer-links a {
-            color: #cbd5e1;
+        .footer-link {
+            color: #94a3b8;
             text-decoration: none;
             transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .footer-links a:hover {
-            color: #3b82f6;
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: #64748b;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .section-title-custom {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
             }
 
-            .nav-links {
-                display: none;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .step {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
-                text-align: center;
+                padding: 2rem;
+                gap: 1.5rem;
+                transition: left 0.3s ease;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            .nav-link:hover {
+                background: rgba(5, 150, 105, 0.1);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <div class="brand-icon">
                 <span class="material-symbols-rounded">point_of_sale</span>
-                <span>PDV Desktop</span>
             </div>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#features">Recursos</a></li>
-                    <li><a href="#download">Download</a></li>
-                    <li><a href="#requirements">Requisitos</a></li>
+                <span class="brand-text">PDV Desktop</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span class="material-symbols-rounded">menu</span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#features" class="nav-link">
+                        <span class="material-symbols-rounded icon">star</span>
+                        Recursos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#download" class="nav-link">
+                        <span class="material-symbols-rounded icon">download</span>
+                        Download
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#requirements" class="nav-link">
+                        <span class="material-symbols-rounded icon">info</span>
+                        Requisitos
+                    </a>
+                </li>
                 </ul>
-            </nav>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Sistema <span class="hero-highlight">PDV</span> Completo<br>para Seu Negócio</h1>
-            <p>Gerencie vendas, produtos e estoque com eficiência. Interface moderna, rápida e fácil de usar.</p>
-            <a href="instalador/PDV Desktop Setup 1.0.6.exe" class="download-btn" download>
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="material-symbols-rounded" style="font-size:18px;">verified</span>
+                        Sistema Profissional
+                    </div>
+                    <h1>
+                        Gerencie seu negócio com 
+                        <span class="highlight">PDV Desktop</span>
+                    </h1>
+                    <p>
+                        Solução completa para gestão de vendas, produtos e estoque. 
+                        Interface moderna, rápida e totalmente offline.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="instalador/PDV Desktop Setup 1.5.0.exe" class="btn-primary" download>
                 <span class="material-symbols-rounded">download</span>
-                Baixar para Windows
-            </a>
-            <div class="download-info">
-                <span class="material-symbols-rounded" style="vertical-align:middle;">info</span> Versão 1.0.6 • 71 MB • Windows 10/11
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats -->
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <span class="material-symbols-rounded">bolt</span>
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Gratuito</div>
-            </div>
-            <div class="stat-item">
-                <span class="material-symbols-rounded">shield</span>
-                <div class="stat-number">Seguro</div>
-                <div class="stat-label">Dados Locais</div>
-            </div>
-            <div class="stat-item">
-                <span class="material-symbols-rounded">laptop</span>
-                <div class="stat-number">Offline</div>
-                <div class="stat-label">Funciona sem Internet</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features" id="features">
-        <div class="section-header">
-            <h2 class="section-title">Recursos Poderosos</h2>
-            <p class="section-subtitle">Tudo que você precisa para gerenciar seu ponto de venda</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="material-symbols-rounded">shopping_cart</span>
+                            Baixar Agora
+                        </a>
+                    </div>
+                    <div class="download-meta">
+                        <div class="meta-item">
+                            <span class="material-symbols-rounded" style="font-size:18px;">check_circle</span>
+                            Versão 1.5.0
+                        </div>
+                        <div class="meta-item">
+                            <span class="material-symbols-rounded" style="font-size:18px;">storage</span>
+                            78 MB
+                        </div>
+                        <div class="meta-item">
+                            <span class="material-symbols-rounded" style="font-size:18px;">computer</span>
+                            Windows 10/11
+                        </div>
+                    </div>
                 </div>
-                <h3>Vendas Rápidas</h3>
-                <p>Realize vendas com poucos cliques. Busca por código ou nome, adicione produtos ao carrinho e finalize rapidamente.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="material-symbols-rounded">inventory_2</span>
-                </div>
-                <h3>Gestão de Produtos</h3>
-                <p>Cadastre, edite e gerencie produtos com facilidade. Controle de estoque automático a cada venda.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="material-symbols-rounded">query_stats</span>
-                </div>
-                <h3>Relatórios e Histórico</h3>
-                <p>Acompanhe vendas diárias e mensais. Visualize histórico completo de transações.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="material-symbols-rounded">calculate</span>
-                </div>
-                <h3>Múltiplas Formas de Pagamento</h3>
-                <p>Aceite dinheiro, débito, crédito e PIX. Cálculo automático de troco.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="material-symbols-rounded">database</span>
-                </div>
-                <h3>Armazenamento Local</h3>
-                <p>Seus dados ficam salvos no seu computador. Privacidade e segurança total.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="material-symbols-rounded">sell</span>
-                </div>
-                <h3>Descontos e Promoções</h3>
-                <p>Aplique descontos nas vendas de forma rápida e prática.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Security Notice -->
-    <section class="how-it-works" style="padding: 3rem 2rem; background: #fff3cd;">
-        <div style="max-width: 1000px; margin: 0 auto;">
-            <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
-                <span class="material-symbols-rounded" style="font-size: 3rem; color: #f59e0b; min-width: 50px;">shield</span>
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 0.8rem; color: #92400e;">
-                        ⚠️ Aviso de Segurança do Windows
-                    </h3>
-                    <p style="color: #78350f; line-height: 1.7; margin-bottom: 1rem;">
-                        O Windows pode mostrar um aviso dizendo que "normalmente não é baixado". Isso é <strong>normal</strong> 
-                        porque o PDV Desktop ainda não possui certificado digital (que custa $300-500/ano).
-                    </p>
-                    <p style="color: #78350f; line-height: 1.7; margin-bottom: 1rem;">
-                        <strong>O PDV Desktop é 100% seguro:</strong> código aberto, sem conexão com internet, dados salvos localmente, sem telemetria.
-                    </p>
-                    <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f59e0b;">
-                        <strong style="color: #92400e;">Como contornar o aviso:</strong>
-                        <ol style="margin: 0.5rem 0 0 1.5rem; color: #78350f; line-height: 1.8;">
-                            <li>Clique em <strong>"Mais informações"</strong> ou <strong>"Ver mais"</strong></li>
-                            <li>Clique em <strong>"Executar mesmo assim"</strong></li>
-                            <li>Siga o instalador normalmente</li>
-                        </ol>
+                <div class="hero-visual">
+                    <div class="visual-card">
+                        <img src="imagem/imagem-prova.png" alt="PDV Desktop Interface">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How it works -->
-    <section class="how-it-works" id="download">
-        <div class="section-header">
-            <h2 class="section-title">Como Instalar</h2>
-            <p class="section-subtitle">Simples e rápido, em apenas 3 passos</p>
-        </div>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Baixe o Instalador</h3>
-                    <p>Clique no botão de download acima e salve o arquivo PDV Desktop Setup.exe no seu computador.</p>
-                </div>
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+        <div class="stats-grid">
+                <div class="stat-card-custom">
+                    <div class="stat-icon-wrapper">
+                <span class="material-symbols-rounded">bolt</span>
+                    </div>
+                    <div class="stat-value">100%</div>
+                <div class="stat-label">Gratuito</div>
             </div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Execute o Instalador</h3>
-                    <p>Dê duplo clique no arquivo baixado. Se aparecer aviso de segurança, clique em "Mais informações" → "Executar mesmo assim".</p>
-                </div>
+                <div class="stat-card-custom">
+                    <div class="stat-icon-wrapper">
+                <span class="material-symbols-rounded">shield</span>
+                    </div>
+                    <div class="stat-value">Seguro</div>
+                <div class="stat-label">Dados Locais</div>
             </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Comece a Usar</h3>
-                    <p>Abra o PDV Desktop pelo atalho criado na área de trabalho ou menu iniciar e comece a vender!</p>
+                <div class="stat-card-custom">
+                    <div class="stat-icon-wrapper">
+                <span class="material-symbols-rounded">laptop</span>
+                    </div>
+                    <div class="stat-value">Offline</div>
+                    <div class="stat-label">Sem Internet</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Screenshots -->
-    <section class="screenshots">
-        <div class="section-header">
-            <h2 class="section-title">Interface Moderna e Profissional</h2>
-            <p class="section-subtitle">Design limpo e intuitivo para máxima produtividade</p>
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header-custom">
+            <div class="section-label">Recursos</div>
+            <h2 class="section-title-custom">Funcionalidades Completas</h2>
+            <p class="section-subtitle-custom">
+                Tudo que você precisa para gerenciar seu ponto de venda com eficiência
+            </p>
         </div>
-        <div class="screenshot-preview">
-            <div class="screenshot-placeholder">
-                <span class="material-symbols-rounded">desktop_windows</span>
+        <div class="features-grid-custom">
+            <div class="feature-card-custom">
+                <div class="feature-icon-custom">
+                    <span class="material-symbols-rounded">shopping_cart</span>
+                </div>
+                <h3>Vendas Rápidas</h3>
+                <p>Realize vendas com poucos cliques. Busca por código ou seleção visual, adicione produtos e finalize rapidamente.</p>
+            </div>
+
+            <div class="feature-card-custom">
+                <div class="feature-icon-custom">
+                    <span class="material-symbols-rounded">inventory_2</span>
+                </div>
+                <h3>Gestão de Produtos</h3>
+                <p>Cadastre, edite e gerencie produtos com facilidade. Controle de estoque automático a cada venda realizada.</p>
+            </div>
+
+            <div class="feature-card-custom">
+                <div class="feature-icon-custom">
+                    <span class="material-symbols-rounded">query_stats</span>
+                </div>
+                <h3>Relatórios Completos</h3>
+                <p>Acompanhe vendas diárias e mensais. Visualize histórico completo com filtros avançados por data e produto.</p>
+            </div>
+
+            <div class="feature-card-custom">
+                <div class="feature-icon-custom">
+                    <span class="material-symbols-rounded">calculate</span>
+                </div>
+                <h3>Múltiplos Pagamentos</h3>
+                <p>Aceite dinheiro, débito, crédito e PIX. Cálculo automático de troco e aplicação de descontos.</p>
+            </div>
+
+            <div class="feature-card-custom">
+                <div class="feature-icon-custom">
+                    <span class="material-symbols-rounded">manage_accounts</span>
+                </div>
+                <h3>Gerenciamento Avançado</h3>
+                <p>Visualize todas as vendas com filtros por data e produto. Veja detalhes completos de cada transação.</p>
+            </div>
+
+            <div class="feature-card-custom">
+                <div class="feature-icon-custom">
+                    <span class="material-symbols-rounded">account_circle</span>
+                </div>
+                <h3>Gestão de Conta</h3>
+                <p>Acesse seu perfil e informações da conta de forma organizada. Sistema seguro com autenticação local.</p>
             </div>
         </div>
     </section>
 
-    <!-- Requirements -->
-    <section class="requirements" id="requirements">
-        <div class="section-header">
-            <h2 class="section-title">Requisitos do Sistema</h2>
-            <p class="section-subtitle">Funciona na maioria dos computadores Windows</p>
-        </div>
-        <div class="requirements-content">
-            <div class="requirement-item">
-                <span class="material-symbols-rounded">check_circle</span>
-                <span>Windows 10 ou superior</span>
-            </div>
-            <div class="requirement-item">
-                <span class="material-symbols-rounded">check_circle</span>
-                <span>2 GB de RAM (mínimo)</span>
-            </div>
-            <div class="requirement-item">
-                <span class="material-symbols-rounded">check_circle</span>
-                <span>500 MB de espaço em disco</span>
-            </div>
-            <div class="requirement-item">
-                <span class="material-symbols-rounded">check_circle</span>
-                <span>Resolução de tela: 1280x720 ou superior</span>
-            </div>
-            <div class="requirement-item">
-                <span class="material-symbols-rounded">check_circle</span>
-                <span>Não requer conexão com internet</span>
+    <!-- Screenshot Section -->
+    <section class="screenshot-section">
+        <div class="screenshot-container">
+            <div class="section-header-custom" style="margin-bottom: 3rem;">
+                <div class="section-label" style="color: var(--primary-light);">Preview</div>
+                <h2 class="section-title-custom" style="color: white;">Interface Moderna</h2>
+                <p class="section-subtitle-custom" style="color: #cbd5e1;">
+                    Design limpo e intuitivo para máxima produtividade
+                </p>
+                    </div>
+            <div class="screenshot-frame">
+                <img src="imagem/imagem-prova.png" alt="PDV Desktop - Interface">
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
-        <h2>Pronto para Começar?</h2>
-        <p>Faça o download gratuito e transforme a gestão do seu negócio hoje mesmo</p>
-        <a href="instalador/PDV Desktop Setup 1.0.2.exe" class="download-btn" download>
+    <!-- Requirements Section -->
+    <section class="requirements-section" id="requirements">
+        <div class="requirements-container">
+            <div class="section-header-custom" style="margin-bottom: 3rem;">
+                <div class="section-label">Requisitos</div>
+                <h2 class="section-title-custom">Sistema Compatível</h2>
+                <p class="section-subtitle-custom">
+                    Funciona na maioria dos computadores Windows
+                </p>
+        </div>
+            <div class="requirements-card">
+                <div class="requirement-row">
+                    <div class="requirement-icon">
+                        <span class="material-symbols-rounded">check_circle</span>
+                </div>
+                    <div class="requirement-text">Windows 10 ou superior</div>
+            </div>
+                <div class="requirement-row">
+                    <div class="requirement-icon">
+                        <span class="material-symbols-rounded">check_circle</span>
+                </div>
+                    <div class="requirement-text">2 GB de RAM (mínimo)</div>
+            </div>
+                <div class="requirement-row">
+                    <div class="requirement-icon">
+                        <span class="material-symbols-rounded">check_circle</span>
+                </div>
+                    <div class="requirement-text">500 MB de espaço em disco</div>
+            </div>
+                <div class="requirement-row">
+                    <div class="requirement-icon">
+                        <span class="material-symbols-rounded">check_circle</span>
+        </div>
+                    <div class="requirement-text">Resolução de tela: 1280x720 ou superior</div>
+        </div>
+                <div class="requirement-row">
+                    <div class="requirement-icon">
+                        <span class="material-symbols-rounded">check_circle</span>
+                    </div>
+                    <div class="requirement-text">Não requer conexão com internet</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Steps -->
+    <section class="how-it-works" id="download" style="padding: 6rem 2rem; background: #f8fafc;">
+        <div class="requirements-container">
+            <div class="section-header-custom" style="margin-bottom: 4rem;">
+                <div class="section-label">Instalação</div>
+                <h2 class="section-title-custom">Como Instalar</h2>
+                <p class="section-subtitle-custom">
+                    Processo simples e rápido, em apenas 3 passos
+                </p>
+        </div>
+            <div style="display: grid; gap: 2rem;">
+                <div class="requirement-row" style="padding: 2rem; background: white;">
+                    <div class="requirement-icon" style="width: 64px; height: 64px;">
+                        <span style="font-size: 32px; font-weight: 700; color: var(--primary-dark);">1</span>
+            </div>
+                    <div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--dark);">Baixe o Instalador</h3>
+                        <p style="color: var(--gray);">Clique no botão de download e salve o arquivo PDV Desktop Setup.exe no seu computador.</p>
+            </div>
+            </div>
+                <div class="requirement-row" style="padding: 2rem; background: white;">
+                    <div class="requirement-icon" style="width: 64px; height: 64px;">
+                        <span style="font-size: 32px; font-weight: 700; color: var(--primary-dark);">2</span>
+            </div>
+                    <div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--dark);">Execute o Instalador</h3>
+                        <p style="color: var(--gray);">Dê duplo clique no arquivo. Se aparecer aviso de segurança, clique em "Mais informações" → "Executar mesmo assim".</p>
+                    </div>
+                </div>
+                <div class="requirement-row" style="padding: 2rem; background: white;">
+                    <div class="requirement-icon" style="width: 64px; height: 64px;">
+                        <span style="font-size: 32px; font-weight: 700; color: var(--primary-dark);">3</span>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--dark);">Comece a Usar</h3>
+                        <p style="color: var(--gray);">Abra o PDV Desktop pelo atalho criado na área de trabalho ou menu iniciar e comece a vender!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Pronto para Começar?</h2>
+            <p class="cta-description">
+                Faça o download gratuito e transforme a gestão do seu negócio hoje mesmo
+            </p>
+            <a href="instalador/PDV Desktop Setup 1.2.0.exe" class="btn-primary" download>
             <span class="material-symbols-rounded">download</span>
             Baixar PDV Desktop Grátis
         </a>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
+        <div class="footer-container">
         <div class="footer-content">
+                <div>
+                    <div class="footer-brand">
+                        <a href="#" class="brand">
+                            <div class="brand-icon">
+                                <span class="material-symbols-rounded">point_of_sale</span>
+                            </div>
+                            <span class="brand-text">PDV Desktop</span>
+                        </a>
+                    </div>
+                    <p class="footer-text">
+                        Sistema completo de ponto de venda para Windows. 
+                        Gestão profissional, interface moderna e totalmente gratuito.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem; font-weight: 700;">Links Rápidos</h4>
             <div class="footer-links">
-                <a href="#features">Recursos</a>
-                <a href="#download">Download</a>
-                <a href="#requirements">Requisitos</a>
+                        <a href="#features" class="footer-link">
+                            <span class="material-symbols-rounded" style="font-size:18px;">star</span>
+                            Recursos
+                        </a>
+                        <a href="#download" class="footer-link">
+                            <span class="material-symbols-rounded" style="font-size:18px;">download</span>
+                            Download
+                        </a>
+                        <a href="#requirements" class="footer-link">
+                            <span class="material-symbols-rounded" style="font-size:18px;">info</span>
+                            Requisitos
+                        </a>
             </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
             <p>&copy; 2025 PDV Desktop. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll para links de navegação
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
                     });
                 }
             });
         });
 
-        // Animação ao scroll
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -690,14 +1180,13 @@
             });
         }, observerOptions);
 
-        // Aplicar animação aos cards de features
-        document.querySelectorAll('.feature-card, .step').forEach(el => {
+        // Observe feature cards
+        document.querySelectorAll('.feature-card-custom, .stat-card-custom').forEach((el, index) => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease-out';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
             observer.observe(el);
         });
     </script>
 </body>
 </html>
-
