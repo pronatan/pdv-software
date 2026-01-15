@@ -1,0 +1,18 @@
+# Excluir node_modules do processamento do Jekyll
+node_modules/
+server/node_modules/
+server/
+
+# Excluir outros diretórios de build e dependências
+build/
+instalador/
+teste/
+.git/
+.cursor/
+
+# Excluir arquivos de configuração que não são páginas
+package.json
+package-lock.json
+database.js
+main.js
+pdv-standalone.html

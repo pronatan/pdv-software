@@ -1,0 +1,23 @@
+# Configuração do Jekyll para GitHub Pages
+
+# Excluir diretórios e arquivos do processamento
+exclude:
+  - node_modules/
+  - server/
+  - build/
+  - instalador/
+  - teste/
+  - .git/
+  - .cursor/
+  - package.json
+  - package-lock.json
+  - database.js
+  - main.js
+  - pdv-standalone.html
+  - "*.exe"
+  - "*.blockmap"
+
+# Configurações básicas
+safe: true
+lsi: false
+incremental: false
