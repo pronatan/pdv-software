@@ -4,9 +4,10 @@ Sistema de Ponto de Venda profissional para Windows.
 
 ## 🚀 Download
 
-Acesse o site: [Abra index.html no navegador]
+**Site hospedado no Cloudflare Pages:** [Acesse o site](https://pdv-software.pages.dev) (após configurar o deploy)
 
-Ou baixe diretamente: `instalador/PDV Desk Setup 1.7.0.exe`
+Ou baixe diretamente do GitHub Releases:
+- [PDV Desk Setup 1.7.0.exe](https://github.com/pronatan/pdv-software/releases/download/v1.7.0/PDV%20Desk%20Setup%201.7.0.exe)
 
 ## 📦 Estrutura do Projeto
 
@@ -55,13 +56,17 @@ npm run build
 - 2 GB RAM (mínimo)
 - 500 MB de espaço em disco
 
-## 🎨 Hospedagem
+## 🎨 Hospedagem no Cloudflare Pages
 
-Para hospedar o site de download:
+O site está configurado para ser hospedado no Cloudflare Pages. Veja o guia completo em [`CLOUDFLARE-SETUP.md`](CLOUDFLARE-SETUP.md).
 
-1. Faça upload de `index.html` e pasta `instalador/` para seu servidor
-2. Acesse pelo navegador
-3. Usuários poderão baixar o instalador
+**Resumo:**
+1. O instalador (79.5 MB) é muito grande para Cloudflare Pages (limite: 25 MB)
+2. O instalador deve ser hospedado no GitHub Releases
+3. O site (`index.html`) aponta para o GitHub Releases para download
+4. Configure o deploy no Cloudflare Pages conectando este repositório
+
+**Importante:** Antes do deploy, crie uma release no GitHub com o executável anexado.
 
 ## 📝 Licença
 

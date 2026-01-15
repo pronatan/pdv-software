@@ -1,0 +1,25 @@
+# Dependências
+node_modules/
+server/node_modules/
+
+# Arquivos de build e instalador (muito grandes para Cloudflare Pages)
+instalador/
+build/
+
+# Arquivos temporários
+*.log
+.DS_Store
+Thumbs.db
+
+# Arquivos de ambiente
+.env
+.env.local
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos de teste
+teste/
