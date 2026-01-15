@@ -1,8 +1,8 @@
-# 🛡️ Como Instalar o PDV Desktop
+# 🛡️ Como Instalar o PDV Desk
 
 ## Por que aparece o aviso de segurança?
 
-O Windows SmartScreen mostra esse aviso porque o PDV Desktop ainda não possui um **certificado digital** (que custa centenas de dólares por ano). Isso **NÃO significa que o programa é perigoso** - apenas que ele é novo e não foi assinado digitalmente.
+O Windows SmartScreen mostra esse aviso porque o PDV Desk ainda não possui um **certificado digital** (que custa centenas de dólares por ano). Isso **NÃO significa que o programa é perigoso** - apenas que ele é novo e não foi assinado digitalmente.
 
 ---
 
@@ -10,7 +10,7 @@ O Windows SmartScreen mostra esse aviso porque o PDV Desktop ainda não possui u
 
 ### **Método 1: Desbloquear o arquivo antes de executar**
 
-1. **Localize o arquivo** `PDV Desktop Setup 1.0.0.exe` na pasta Downloads
+1. **Localize o arquivo** `PDV Desk Setup 1.7.0.exe` na pasta Downloads
 2. **Clique com botão direito** no arquivo
 3. Selecione **"Propriedades"**
 4. Na aba **"Geral"**, marque a opção **"Desbloquear"** (se aparecer)
@@ -21,8 +21,8 @@ O Windows SmartScreen mostra esse aviso porque o PDV Desktop ainda não possui u
 
 ### **Método 2: Contornar o aviso durante a instalação**
 
-1. **Execute** o arquivo `PDV Desktop Setup 1.0.0.exe`
-2. Se aparecer o aviso: **"PDV Desktop Setup 1.0.0.exe normalmente não é baixado"**
+1. **Execute** o arquivo `PDV Desk Setup 1.7.0.exe`
+2. Se aparecer o aviso: **"PDV Desk Setup 1.7.0.exe normalmente não é baixado"**
 3. Clique em **"Ver mais"** ou **"Mais informações"**
 4. Clique em **"Executar mesmo assim"** ou **"Run anyway"**
 5. Siga as instruções do instalador
@@ -41,7 +41,7 @@ O Windows SmartScreen mostra esse aviso porque o PDV Desktop ainda não possui u
 
 ---
 
-## 🔒 O PDV Desktop é Seguro?
+## 🔒 O PDV Desk é Seguro?
 
 ### ✅ **SIM! Veja por quê:**
 
@@ -60,13 +60,13 @@ Um **certificado de assinatura de código** custa entre:
 - 💰 Requer validação da empresa
 - 💰 Processo pode levar semanas
 
-**Por enquanto**, o PDV Desktop é distribuído **sem certificado** para manter o projeto gratuito.
+**Por enquanto**, o PDV Desk é distribuído **sem certificado** para manter o projeto gratuito.
 
 ---
 
 ## 🚀 Após a Instalação
 
-1. O PDV Desktop será instalado em: `C:\Program Files\PDV Desktop\`
+1. O PDV Desk será instalado em: `C:\Program Files\PDV Desk\`
 2. Atalhos criados em:
    - Área de Trabalho
    - Menu Iniciar
@@ -78,5 +78,5 @@ Um **certificado de assinatura de código** custa entre:
 
 O aviso do Windows é **normal** para aplicativos não assinados. Milhares de aplicativos gratuitos têm o mesmo aviso.
 
-**Você está seguro para instalar o PDV Desktop!** ✅
+**Você está seguro para instalar o PDV Desk!** ✅
 

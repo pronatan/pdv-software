@@ -1,7 +1,7 @@
 {
-  "name": "pdv-desktop",
-  "version": "1.6.0",
-  "description": "Sistema PDV Desktop - Nativo para Windows",
+  "name": "pdv-desk",
+  "version": "1.7.0",
+  "description": "Sistema PDV Desk - Nativo para Windows",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -9,38 +9,38 @@
   },
   "build": {
     "appId": "com.pdv.desktop",
-    "productName": "PDV Desktop",
+    "productName": "PDV Desk",
     "win": {
       "target": "nsis",
-      "icon": "build/icon.ico"
+      "icon": "imagem/build/icon.ico"
     },
-    "artifactName": "PDV Desktop Setup ${version}.exe",
+    "artifactName": "PDV Desk Setup ${version}.exe",
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "PDV Desktop",
-      "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico"
+      "shortcutName": "PDV Desk",
+      "installerIcon": "imagem/build/icon.ico",
+      "installerSidebar": "installerSidebar.bmp"
     },
     "files": [
       "pdv-standalone.html",
       "main.js",
       "database.js",
       "package.json",
-      "build/icon.ico",
-      "build/icon.png",
-      "build/icon-*.png"
+      "modelos cupom/**/*"
     ],
     "directories": {
-      "output": "instalador"
+      "output": "instalador",
+      "buildResources": "build"
     }
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "sql.js": "^1.10.3"
+    "sql.js": "^1.10.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "electron": "^27.0.0",

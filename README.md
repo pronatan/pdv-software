@@ -1,4 +1,4 @@
-# PDV Desktop
+# PDV Desk
 
 Sistema de Ponto de Venda profissional para Windows.
 
@@ -6,7 +6,7 @@ Sistema de Ponto de Venda profissional para Windows.
 
 Acesse o site: [Abra index.html no navegador]
 
-Ou baixe diretamente: `instalador/PDV Desktop Setup 1.0.0.exe`
+Ou baixe diretamente: `instalador/PDV Desk Setup 1.7.0.exe`
 
 ## 📦 Estrutura do Projeto
 
@@ -14,7 +14,7 @@ Ou baixe diretamente: `instalador/PDV Desktop Setup 1.0.0.exe`
 pdv/
 ├── index.html                          # Site de download
 ├── instalador/
-│   └── PDV Desktop Setup 1.0.0.exe    # Instalador (71 MB)
+│   └── PDV Desk Setup 1.7.0.exe       # Instalador
 ├── build/                              # Ícones do sistema
 ├── main.js                             # Aplicação Electron principal
 ├── pdv-standalone.html                 # Interface do PDV

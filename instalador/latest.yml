@@ -1,8 +1,8 @@
-version: 1.5.0
+version: 1.7.0
 files:
-  - url: PDV-Desktop-Setup-1.5.0.exe
-    sha512: 3m6Lh+OCVjJV42zq+oVoSVz9MOVJlOuQDeQk3+XxpTMwegn6LPJOI/U085INW5ZjwbUOVaDeLt+gI0f8Jfx0Iw==
-    size: 81176961
-path: PDV-Desktop-Setup-1.5.0.exe
-sha512: 3m6Lh+OCVjJV42zq+oVoSVz9MOVJlOuQDeQk3+XxpTMwegn6LPJOI/U085INW5ZjwbUOVaDeLt+gI0f8Jfx0Iw==
-releaseDate: '2025-10-31T22:25:52.187Z'
+  - url: PDV-Desk-Setup-1.7.0.exe
+    sha512: MrVUPQmcHDUuhhXQcUrFfPMdzzhvqPKYRN92K8GhkT8FzxexX3SkYo3M8ulQ7/JKnxesGV45y2SospOSqkjiQg==
+    size: 83322748
+path: PDV-Desk-Setup-1.7.0.exe
+sha512: MrVUPQmcHDUuhhXQcUrFfPMdzzhvqPKYRN92K8GhkT8FzxexX3SkYo3M8ulQ7/JKnxesGV45y2SospOSqkjiQg==
+releaseDate: '2026-01-15T22:09:57.643Z'
